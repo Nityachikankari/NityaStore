@@ -10,7 +10,7 @@ This project is a website built to help you run an online shop for Nitya Chikank
 - Check out and send their order details to a WhatsApp number for processing.
 - See special features like zooming into product images and a fun animation when adding items to the cart.
 
-The website is live at: [https://uj2208.github.io/jewelry-boutique/](https://uj2208.github.io/jewelry-boutique/). You can visit this link to see it in action!
+The website is live at: [https://nityachikankari.github.io/NityaStore/]. You can visit this link to see it in action!
 
 ## What You’ll Need
 
@@ -25,7 +25,7 @@ No special software or coding skills are required to just look at or use the web
 
 1. **Visit the Live Site**:
    - Open your web browser.
-   - Type or paste this link: [https://uj2208.github.io/jewelry-boutique/](https://uj2208.github.io/jewelry-boutique/) into the address bar and press Enter.
+   - Type or paste this link: [(https://nityachikankari.github.io/NityaStore/)] into the address bar and press Enter.
    - You’ll see the homepage with a video, product sections, and navigation links.
 
 2. **Explore the Pages**:
@@ -50,13 +50,13 @@ Here’s a simple explanation of what happens on the website:
 If you want to share this project with someone or make small changes (like adding new products), here’s what to do. Don’t worry—it’s easy!
 
 ### Sharing the Website
-- **Send the Link**: Just give someone the website address: [https://uj2208.github.io/jewelry-boutique/](https://uj2208.github.io/jewelry-boutique/). They can visit it anytime!
+- **Send the Link**: Just give someone the website address: [https://nityachikankari.github.io/NityaStore/]. They can visit it anytime!
 - **Show on Your Computer**: Open the site on your browser and let others see it.
 
 ### Downloading the Files (Optional)
 If you want to keep a copy or make changes:
 1. **Go to GitHub**:
-   - Visit [https://github.com/uj2208/jewelry-boutique](https://github.com/uj2208/jewelry-boutique) in your browser.
+   - Visit [https://github.com/in your browser.
 2. **Download the Project**:
    - Click the green “Code” button.
    - Choose “Download ZIP” and save the file to your computer.
@@ -81,11 +81,11 @@ If you want to add a new product or change text (e.g., prices or descriptions):
 1. **Sign Up for GitHub**:
    - Go to [github.com](https://github.com) and create a free account if you don’t have one.
 2. **Edit Online**:
-   - Go to [https://github.com/uj2208/jewelry-boutique](https://github.com/uj2208/jewelry-boutique).
+   - Go to [https://nityachikankari.github.io/NityaStore/].
    - Click on a file (e.g., `shop.html`), then click the pencil icon to edit.
    - Make your changes and click “Commit changes” at the bottom.
 3. **Wait for Update**:
-   - The website will automatically update at [https://uj2208.github.io/jewelry-boutique/](https://uj2208.github.io/jewelry-boutique/) after a few minutes.
+   - The website will automatically update at [https://nityachikankari.github.io/NityaStore/] after a few minutes.
 
 **Note**: If editing feels tricky, it’s okay to ask a friend or hire someone who knows coding to help!
 
@@ -110,7 +110,7 @@ The project folder contains these main files:
 
 ## Help and Support
 If something doesn’t work or you need help:
-- **Check the Website**: Visit [https://uj2208.github.io/jewelry-boutique/](https://uj2208.github.io/jewelry-boutique/) to see if the issue is there.
+- **Check the Website**: Visit [https://nityachikankari.github.io/NityaStore/] to see if the issue is there.
 - **Ask for Help**: Contact someone with coding experience or reach out to the original creator via GitHub.
 - **Report Issues**: If you find a problem, note it down and share it with a developer.
 
