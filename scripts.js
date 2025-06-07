@@ -512,6 +512,18 @@ function setupImageReveal() {
         observer.observe(img);
     });
 }
+// Toggle Testimonials Functionality
+function setupTestimonials() {
+    const toggleButton = document.querySelector('.toggle-testimonials');
+    const testimonials = document.getElementById('testimonials');
+
+    if (toggleButton && testimonials) {
+        toggleButton.addEventListener('click', () => {
+            testimonials.classList.toggle('hidden');
+            toggleButton.textContent = testimonials.classList.contains('hidden') ? 'View Testimonials' : 'Hide Testimonials';
+        });
+    }
+}
 
 // Ensure DOM is fully loaded before initializing
 function initialize() {
@@ -526,6 +538,7 @@ function initialize() {
     setupSlideshow();
     setupHeroVideo();
     setupImageReveal();
+    setupTestimonials(); // Add testimonials toggle
 }
 
 if (document.readyState === 'loading') {
