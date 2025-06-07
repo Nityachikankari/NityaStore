@@ -104,7 +104,7 @@ The project folder contains these main files:
 
 ## Tips for Success
 - **Add More Products**: Update `shop.html` and `products.html` with new sarees or kurtis to keep the store fresh.
-- **Check WhatsApp**: Make sure you’re monitoring the +8005000099 number for order messages.
+- **Check WhatsApp**: Make sure you’re monitoring the +xxxxxxxx number for order messages.
 - **Test on Mobile**: Open the site on a phone to ensure it looks good and works well.
 - **Get Feedback**: Ask friends or customers what they think and share their ideas!
 
