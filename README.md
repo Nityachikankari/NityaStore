@@ -42,7 +42,7 @@ No special software or coding skills are required to just look at or use the web
 Here’s a simple explanation of what happens on the website:
 - **Products**: Customers can look at sarees, kurtis, and more. They can zoom into pictures and choose sizes.
 - **Cart**: When they add an item, it goes into a virtual shopping bag. The website remembers this using your browser.
-- **Checkout**: When they click "Proceed to Checkout," the website asks for their location (using their phone or computer’s location settings) and sends the order details to a WhatsApp number (+8005000099) with a random order number.
+- **Checkout**: When they click "Proceed to Checkout," the website asks for their location (using their phone or computer’s location settings) and sends the order details to a WhatsApp number (+xxxxxxxxxx) with a random order number.
 - **No Login Needed**: Customers don’t need to sign up—they can shop right away!
 
 ## How to Share or Update the Website
