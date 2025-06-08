@@ -18,8 +18,8 @@ body {
     to { opacity: 1; }
 }
 
-@keyframes fade-in {
-    from { opacity: 0; transform: translateY(10px); }
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
@@ -38,6 +38,7 @@ nav {
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
+    position: relative;
 }
 
 .logo {
@@ -486,6 +487,31 @@ nav {
     color: #666666;
     font-size: 1rem;
     font-weight: 300;
+}
+
+.animation-container {
+    position: relative;
+    width: 100%;
+    background: url('https://khinkhwab.com/cdn/shop/articles/chikankari.webp?v=1662905847') no-repeat center center;
+    background-size: cover;
+    padding: 5rem 1rem;
+    text-align: center;
+    color: #fff;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeInUp 1.5s ease-out forwards;
+}
+
+.animated-text {
+    font-size: 3.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    color: #C49A6C;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    display: inline-block;
 }
 
 .testimonials-section {
@@ -1066,6 +1092,14 @@ footer a:hover {
         width: 80px;
         height: 80px;
     }
+
+    .animation-container {
+        padding: 3rem 1rem;
+    }
+
+    .animated-text {
+        font-size: 2.5rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1218,5 +1252,13 @@ footer a:hover {
     .testimonial-image {
         width: 70px;
         height: 70px;
+    }
+
+    .animation-container {
+        padding: 2rem 0.5rem;
+    }
+
+    .animated-text {
+        font-size: 2rem;
     }
 }

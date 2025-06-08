@@ -524,6 +524,24 @@ function setupTestimonials() {
         });
     }
 }
+// Animation Functionality (Trigger on every page load)
+function setupAnimation() {
+    const animationContainer = document.getElementById('animation-container');
+    if (animationContainer) {
+        animationContainer.style.opacity = '0'; // Start hidden
+        // Trigger animation on page load
+        setTimeout(() => {
+            animationContainer.style.opacity = '1';
+        }, 100); // Small delay to ensure DOM is ready
+        // Hide after animation (3s for a dazzling effect)
+        setTimeout(() => {
+            animationContainer.style.opacity = '0';
+            setTimeout(() => {
+                animationContainer.style.display = 'none';
+            }, 500); // Allow fade-out transition
+        }, 3000);
+    }
+}
 
 // Ensure DOM is fully loaded before initializing
 function initialize() {
@@ -539,6 +557,7 @@ function initialize() {
     setupHeroVideo();
     setupImageReveal();
     setupTestimonials(); // Add testimonials toggle
+    setupAnimation(); // Add one-time animation
 }
 
 if (document.readyState === 'loading') {
