@@ -542,6 +542,32 @@ function setupAnimation() {
         }, 3000);
     }
 }
+// Function to initialize hamburger menu
+function initHamburgerMenu() {
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (hamburger && navLinks) {
+        console.log('Hamburger and navLinks found'); // Debug log
+        hamburger.addEventListener('click', () => {
+            console.log('Hamburger clicked'); // Debug log
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+    } else {
+        console.error('Hamburger or navLinks not found in the DOM');
+        // Retry after a short delay
+        setTimeout(initHamburgerMenu, 500);
+    }
+}
+
+// Ensure the function is available globally for the fetch callback
+window.initHamburgerMenu = initHamburgerMenu;
+
+// Ensure the function runs after DOM content is fully loaded
+document.addEventListener('DOMContentLoaded', () => {
+    // This will be overridden by the fetch callback in HTML
+});
 
 // Ensure DOM is fully loaded before initializing
 function initialize() {

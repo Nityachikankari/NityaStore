@@ -9,20 +9,21 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header>
-    <nav>
-        <div class="logo">Nitya Chikankari</div>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="shop.html">Shop</a>
-            <a href="products.html">Products</a>
-            <a href="cart.html">Cart</a>
-            <a href="collections.html">Collections</a>
-            <a href="about.html">About</a>
-            <a href="contact.html">Contact</a>
-        </div>
-    </nav>
-</header>
+<!-- Include Header -->
+<div id="header"></div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        fetch('header.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('header').innerHTML = html;
+                if (typeof initHamburgerMenu === 'function') {
+                    initHamburgerMenu();
+                }
+            })
+            .catch(error => console.error('Error loading header:', error));
+    });
+</script>
 
 <section class="about">
     <div class="animation-container" id="animation-container">
@@ -64,18 +65,13 @@
     </div>
 </section>
 
-<footer>
-    <p>© 2025 Nitya Chikankari. All rights reserved.</p>
-    <p>
-        <a href="contact.html">Contact Us</a> |
-        <a href="shop.html">Shop</a> |
-        <a href="products.html">Products</a> |
-        <a href="cart.html">Cart</a> |
-        <a href="collections.html">Collections</a> |
-        <a href="https://www.instagram.com/_nitya_chikankari/" target="_blank" aria-label="Follow Nitya Chikankari on Instagram">_nitya_chikankari</a>
-    </p>
-    <button class="share-btn">Share this Page</button>
-</footer>
+<!-- Include Footer -->
+<div id="footer"></div>
+<script>
+    fetch('footer.html')
+        .then(response => response.text())
+        .then(html => document.getElementById('footer').innerHTML = html);
+</script>
 
 <script defer src="scripts.js"></script>
 </body>
