@@ -175,6 +175,11 @@ nav {
 }
 
 .cta-btn {
+    border: none; /* Remove black border */
+    margin-top: 40px; /* Space above the button */
+    margin-bottom: 20px; /* Space below the button before footer */
+    display: block; /* Ensure it behaves as a block element */
+    width: 250px; /* Fixed width for centering, matches image */
     padding: 0.9rem 2.2rem;
     background-color: #C49A6C;
     color: #FFFFFF;
