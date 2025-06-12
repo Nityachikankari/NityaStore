@@ -19,62 +19,64 @@ function updateCart() {
         row.innerHTML = `
             <td>${item.name}</td>
             <td>${item.size}</td>
-            <td>$${item.price}</td>
+            <td>${item.color}</td>
+            <td>₹${item.price}</td>
             <td>
                 <div class="cart-quantity-control">
-                    <button class="cart-decrease" data-id="${item.id}">−</button>
+                    <button class="cart-decrease" data-id="${item.id}" data-size="${item.size}" data-color="${item.color}">−</button>
                     <span>${item.quantity}</span>
-                    <button class="cart-increase" data-id="${item.id}">+</button>
+                    <button class="cart-increase" data-id="${item.id}" data-size="${item.size}" data-color="${item.color}">+</button>
                 </div>
             </td>
-            <td>$${item.price * item.quantity}</td>
+            <td>₹${(item.price * item.quantity).toFixed(2)}</td>
         `;
         cartItems.appendChild(row);
         total += item.price * item.quantity;
     });
 
-    cartTotal.textContent = total.toFixed(2);
+    cartTotal.textContent = `₹${total.toFixed(2)}`;
     saveCart();
 }
 
-function updateQuantity(id, change, quantitySpan, decreaseBtn) {
-    console.log(`updateQuantity called with id: ${id}, change: ${change}`);
+function updateQuantity(id, size, color, change, quantitySpan, decreaseBtn) {
+    console.log(`updateQuantity called with id: ${id}, size: ${size}, color: ${color}, change: ${change}`);
     console.log('Cart before update:', cart);
     try {
-        const item = cart.find(item => item.id === id);
+        const item = cart.find(item => item.id === id && item.size === size && item.color === color);
         const card = document.querySelector(`.product-card[data-id="${id}"]`);
-        const size = card ? card.querySelector('.size-dropdown').value : (item ? item.size : 'M');
+        const selectedSize = card ? card.querySelector('.size-dropdown').value : (item ? item.size : 'M');
+        const selectedColor = card ? card.querySelector('.color-dropdown').value : (item ? item.color : 'Blue');
         let newQuantity;
         let isNewItem = false;
 
         if (item) {
             item.quantity += change;
-            item.size = size;
             newQuantity = item.quantity;
             console.log(`Item quantity updated to: ${newQuantity}`);
             if (item.quantity <= 0) {
-                cart = cart.filter(cartItem => cartItem.id !== id);
+                cart = cart.filter(cartItem => !(cartItem.id === id && cartItem.size === size && cartItem.color === color));
                 newQuantity = 0;
                 console.log('Item removed from cart');
             }
         } else if (change > 0) {
             const name = card.dataset.name;
             const price = parseFloat(card.dataset.price);
-            cart.push({ id, name, price, size, quantity: 1 });
+            cart.push({ id, name, price, size: selectedSize, color: selectedColor, quantity: 1 });
             newQuantity = 1;
             isNewItem = true;
-            console.log(`New item added to cart: ${name}, Quantity: 1`);
+            console.log(`New item added to cart: ${name}, Size: ${selectedSize}, Color: ${selectedColor}, Quantity: 1`);
         } else {
             newQuantity = 0;
             console.log('No item found and change <= 0, setting quantity to 0');
         }
 
         if (quantitySpan && decreaseBtn) {
-            quantitySpan.textContent = newQuantity;
-            decreaseBtn.disabled = newQuantity === 0;
-            console.log(`UI updated - Quantity span set to: ${quantitySpan.textContent}, Decrease button disabled: ${decreaseBtn.disabled}`);
+            if (selectedSize === size && selectedColor === color) {
+                quantitySpan.textContent = newQuantity;
+                decreaseBtn.disabled = newQuantity === 0;
+                console.log(`UI updated - Quantity span set to: ${quantitySpan.textContent}, Decrease button disabled: ${decreaseBtn.disabled}`);
+            }
 
-            // Trigger cart animation if a new item is added
             if (isNewItem && card) {
                 const productImage = card.querySelector('.product-image');
                 const cartLink = document.querySelector('.nav-links a[href="cart.html"]');
@@ -83,11 +85,9 @@ function updateQuantity(id, change, quantitySpan, decreaseBtn) {
                     imgClone.classList.add('cart-animation');
                     document.body.appendChild(imgClone);
 
-                    // Get positions for animation
                     const cardRect = card.getBoundingClientRect();
                     const endRect = cartLink.getBoundingClientRect();
 
-                    // Start position: Center above the product card
                     const cloneWidth = imgClone.width;
                     const cloneHeight = imgClone.height;
                     const startX = cardRect.left + (cardRect.width / 2) - (cloneWidth / 2);
@@ -96,11 +96,9 @@ function updateQuantity(id, change, quantitySpan, decreaseBtn) {
                     imgClone.style.left = `${startX}px`;
                     imgClone.style.top = `${startY}px`;
 
-                    // Calculate the final position (center of the cart link)
                     const endX = endRect.left + (endRect.width / 2) - (cloneWidth / 2);
                     const endY = endRect.top + window.scrollY + (endRect.height / 2) - (cloneHeight / 2);
 
-                    // Animate to the cart link
                     requestAnimationFrame(() => {
                         imgClone.style.transform = `translate(${endX - startX}px, ${endY - startY}px)`;
                     });
@@ -120,13 +118,11 @@ function updateQuantity(id, change, quantitySpan, decreaseBtn) {
     }
 }
 
-// Generate a random order number (e.g., ORDER-123456)
 function generateOrderNumber() {
-    const randomNum = Math.floor(100000 + Math.random() * 900000); // 6-digit random number
+    const randomNum = Math.floor(100000 + Math.random() * 900000);
     return `ORDER-${randomNum}`;
 }
 
-// Format cart details for WhatsApp message
 function formatOrderDetails(orderNumber, location) {
     let message = `New Order: ${orderNumber}\n\n`;
     message += `Customer Location: ${location}\n\n`;
@@ -136,36 +132,38 @@ function formatOrderDetails(orderNumber, location) {
     cart.forEach(item => {
         const itemTotal = item.price * item.quantity;
         total += itemTotal;
-        message += `- ${item.name} (Size: ${item.size}, Quantity: ${item.quantity}) - $${itemTotal}\n`;
+        message += `- ${item.name} (Size: ${item.size}, Color: ${item.color}, Quantity: ${item.quantity}) - ₹${itemTotal.toFixed(2)}\n`;
     });
 
-    message += `\nTotal: $${total.toFixed(2)}\n`;
+    message += `\nTotal: ₹${total.toFixed(2)}\n`;
     message += `\nPlease confirm the order and arrange for delivery`;
     message += `\nThank you for shopping with Nitya Chikankari!`;
     message += `\n\nVisit us at: ${window.location.href}`;
 
-    // Encode message for URL
     return encodeURIComponent(message);
 }
 
-// Sync quantities with cart state on page load
 function syncQuantities() {
     console.log('Syncing quantities on page load');
     document.querySelectorAll('.product-card').forEach(card => {
         const id = card.dataset.id;
         const quantitySpan = card.querySelector('.quantity');
         const decreaseBtn = card.querySelector('.decrease');
-        const item = cart.find(item => item.id === id);
+        const size = card.querySelector('.size-dropdown').value;
+        const color = card.querySelector('.color-dropdown').value;
+        const item = cart.find(item => item.id === id && item.size === size && item.color === color);
         if (item && quantitySpan && decreaseBtn) {
             quantitySpan.textContent = item.quantity;
             quantitySpan.offsetHeight;
             decreaseBtn.disabled = item.quantity === 0;
-            console.log(`Synced quantity for id ${id}: ${item.quantity}`);
+            console.log(`Synced quantity for id ${id}, size ${size}, color ${color}: ${item.quantity}`);
+        } else if (quantitySpan && decreaseBtn) {
+            quantitySpan.textContent = '0';
+            decreaseBtn.disabled = true;
         }
     });
 }
 
-// Share Button Functionality
 function setupShareButton() {
     const shareBtn = document.querySelector('.share-btn');
     if (shareBtn) {
@@ -185,7 +183,6 @@ function setupShareButton() {
     }
 }
 
-// Modal Functionality for Product Details
 function setupModal() {
     const modal = document.getElementById('product-modal');
     const modalTitle = document.getElementById('modal-title');
@@ -212,7 +209,7 @@ function setupModal() {
                         <p><strong>Material:</strong> ${details.material}</p>
                         <p><strong>Color:</strong> ${details.color}</p>
                         <p><strong>Craft:</strong> ${details.craft}</p>
-                        <p class="modal-price">$${price}</p>
+                        <p class="modal-price">₹${price}</p>
                         <p class="modal-sizes"><strong>Sizes:</strong> ${sizes}</p>
                     `;
                     modalGrid.appendChild(modalCard);
@@ -261,7 +258,6 @@ function setupModal() {
     }
 }
 
-// Image Zoom Functionality
 function setupImageZoom() {
     const zoomOverlay = document.getElementById('image-zoom-overlay');
     const zoomedImage = document.getElementById('zoomed-image');
@@ -301,50 +297,80 @@ function setupImageZoom() {
     }
 }
 
-// Size Chart Dialog Functionality
 function setupSizeChart() {
     const sizeChartDialog = document.getElementById('size-chart-dialog');
     const sizeChartButtons = document.querySelectorAll('.size-chart-btn');
     const sizeChartClose = document.querySelector('.size-chart-close');
 
-    if (sizeChartDialog && sizeChartButtons.length > 0 && sizeChartClose) {
-        sizeChartButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
+    console.log('Setting up size chart. Dialog:', sizeChartDialog, 'Buttons:', sizeChartButtons.length, 'Close:', sizeChartClose);
+
+    if (!sizeChartDialog || sizeChartButtons.length === 0 || !sizeChartClose) {
+        console.error('Size chart setup failed: Missing dialog, buttons, or close button.');
+        return;
+    }
+
+    sizeChartButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            try {
                 console.log('Size chart button clicked');
                 sizeChartDialog.showModal();
                 document.body.style.overflow = 'hidden';
-            });
-
-            btn.addEventListener('touchstart', (e) => {
-                e.preventDefault();
-                btn.click();
-            }, { passive: false });
-        });
-
-        sizeChartClose.addEventListener('click', () => {
-            console.log('Size chart close button clicked');
-            sizeChartDialog.close();
-            document.body.style.overflow = 'auto';
-        });
-
-        sizeChartDialog.addEventListener('click', (e) => {
-            if (e.target === sizeChartDialog) {
-                console.log('Clicked outside size chart dialog');
-                sizeChartDialog.close();
-                document.body.style.overflow = 'auto';
+            } catch (error) {
+                console.error('Error opening size chart dialog:', error);
+                sizeChartDialog.style.display = 'block';
+                document.body.style.overflow = 'hidden';
             }
         });
 
-        sizeChartClose.addEventListener('touchstart', (e) => {
+        btn.addEventListener('touchstart', (e) => {
             e.preventDefault();
-            console.log('Size chart close button touched');
-            sizeChartDialog.close();
-            document.body.style.overflow = 'auto';
+            console.log('Size chart button touched');
+            btn.click();
         }, { passive: false });
-    }
+    });
+
+    sizeChartClose.addEventListener('click', () => {
+        console.log('Size chart close button clicked');
+        try {
+            sizeChartDialog.close();
+        } catch (error) {
+            console.error('Error closing size chart dialog:', error);
+            sizeChartDialog.style.display = 'none';
+        }
+        document.body.style.overflow = 'auto';
+    });
+
+    sizeChartDialog.addEventListener('click', (e) => {
+        if (e.target === sizeChartDialog) {
+            console.log('Clicked outside size chart dialog');
+            try {
+                sizeChartDialog.close();
+            } catch (error) {
+                console.error('Error closing size chart dialog:', error);
+                sizeChartDialog.style.display = 'none';
+            }
+            document.body.style.overflow = 'auto';
+        }
+    });
+
+    sizeChartClose.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        console.log('Size chart close button touched');
+        try {
+            sizeChartDialog.close();
+        } catch (error) {
+            console.error('Error closing size chart dialog:', error);
+            sizeChartDialog.style.display = 'none';
+        }
+        document.body.style.overflow = 'auto';
+    }, { passive: false });
+
+    sizeChartDialog.addEventListener('cancel', () => {
+        console.log('Size chart dialog cancelled');
+        document.body.style.overflow = 'auto';
+    });
 }
 
-// Product Card Quantity Controls
 function setupProductCards() {
     console.log(`Found ${document.querySelectorAll('.product-card').length} product cards`);
     const productCards = document.querySelectorAll('.product-card');
@@ -367,8 +393,10 @@ function setupProductCards() {
             console.log('Increase button clicked');
             try {
                 const id = card.dataset.id;
+                const size = card.querySelector('.size-dropdown').value;
+                const color = card.querySelector('.color-dropdown').value;
                 quantitySpan = card.querySelector('.quantity');
-                updateQuantity(id, 1, quantitySpan, decreaseBtn);
+                updateQuantity(id, size, color, 1, quantitySpan, decreaseBtn);
                 const name = card.dataset.name;
                 alert(`${name} added to cart!`);
             } catch (error) {
@@ -381,14 +409,23 @@ function setupProductCards() {
             console.log('Decrease button clicked');
             try {
                 const id = card.dataset.id;
+                const size = card.querySelector('.size-dropdown').value;
+                const color = card.querySelector('.color-dropdown').value;
                 quantitySpan = card.querySelector('.quantity');
                 const currentQuantity = parseInt(quantitySpan.textContent);
                 if (currentQuantity > 0) {
-                    updateQuantity(id, -1, quantitySpan, decreaseBtn);
+                    updateQuantity(id, size, color, -1, quantitySpan, decreaseBtn);
                 }
             } catch (error) {
                 console.error('Error decreasing quantity:', error);
             }
+        });
+
+        card.querySelector('.size-dropdown').addEventListener('change', () => {
+            syncQuantities();
+        });
+        card.querySelector('.color-dropdown').addEventListener('change', () => {
+            syncQuantities();
         });
     });
 
@@ -397,7 +434,6 @@ function setupProductCards() {
     });
 }
 
-// Cart Page Specific Functionality with Checkout
 function setupCartPage() {
     const cartItems = document.getElementById('cart-items');
     if (cartItems) {
@@ -406,12 +442,14 @@ function setupCartPage() {
             const target = e.target;
             if (target.classList.contains('cart-increase') || target.classList.contains('cart-decrease')) {
                 const id = target.dataset.id;
+                const size = target.dataset.size;
+                const color = target.dataset.color;
                 const change = target.classList.contains('cart-increase') ? 1 : -1;
-                const item = cart.find(item => item.id === id);
+                const item = cart.find(item => item.id === id && item.size === size && item.color === color);
                 if (item || change > 0) {
                     const quantitySpan = document.querySelector(`.product-card[data-id="${id}"] .quantity`);
                     const decreaseBtn = document.querySelector(`.product-card[data-id="${id}"] .decrease`);
-                    updateQuantity(id, change, quantitySpan, decreaseBtn);
+                    updateQuantity(id, size, color, change, quantitySpan, decreaseBtn);
                 }
             }
         });
@@ -427,10 +465,9 @@ function setupCartPage() {
                 if (cart.length === 0) {
                     alert('Your cart is empty!');
                 } else {
-                    // Show location modal
                     locationModal.style.display = 'flex';
                     document.body.style.overflow = 'hidden';
-                    locationInput.value = ''; // Clear previous input
+                    locationInput.value = '';
                 }
             });
 
@@ -441,16 +478,13 @@ function setupCartPage() {
                     return;
                 }
 
-                // Generate order number and format message
                 const orderNumber = generateOrderNumber();
                 const message = formatOrderDetails(orderNumber, location);
 
-                // Redirect to WhatsApp
                 const whatsappNumber = '+7007992535';
                 const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
                 window.open(whatsappUrl, '_blank');
 
-                // Clear cart and update UI
                 cart = [];
                 updateCart();
                 document.querySelectorAll('.product-card').forEach(card => {
@@ -463,7 +497,6 @@ function setupCartPage() {
                     }
                 });
 
-                // Close location modal
                 locationModal.style.display = 'none';
                 document.body.style.overflow = 'auto';
             });
@@ -483,7 +516,6 @@ function setupCartPage() {
     }
 }
 
-// Contact Form Submission
 function setupContactForm() {
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
@@ -495,7 +527,6 @@ function setupContactForm() {
     }
 }
 
-// Theme Slideshow for Collections Page
 function setupSlideshow() {
     const slides = document.querySelectorAll('.slide');
     let currentSlide = 0;
@@ -520,24 +551,68 @@ function setupSlideshow() {
     }
 }
 
-// Hero Video on Home Page
-function setupHeroVideo() {
-    const video = document.getElementById('hero-video');
+function setupHeroVideoCarousel() {
+    const videos = document.querySelectorAll('.hero-video-slide');
+    const indicators = document.querySelectorAll('.carousel-indicators .indicator');
+    let currentVideo = 0;
+    let intervalId = null;
+
+    function showVideo(index) {
+        videos.forEach((video, i) => {
+            video.classList.remove('active');
+            video.pause();
+            video.currentTime = 0; // Reset to start
+            indicators[i].classList.remove('active');
+        });
+        videos[index].classList.add('active');
+        indicators[index].classList.add('active');
+        videos[index].play().catch(e => console.error('Video play error:', e));
+    }
+
+    function nextVideo() {
+        currentVideo = (currentVideo + 1) % videos.length;
+        showVideo(currentVideo);
+    }
+
+    function startCarousel() {
+        if (intervalId) clearInterval(intervalId);
+        intervalId = setInterval(nextVideo, 10000);
+    }
+
+    if (videos.length > 0) {
+        showVideo(currentVideo);
+        startCarousel();
+
+        videos.forEach(video => {
+            video.addEventListener('ended', () => {
+                console.log('Video ended, switching to next');
+                nextVideo();
+                startCarousel(); // Restart interval after manual or end-triggered switch
+            });
+        });
+
+        indicators.forEach(indicator => {
+            indicator.addEventListener('click', () => {
+                const index = parseInt(indicator.dataset.index);
+                if (index !== currentVideo) {
+                    currentVideo = index;
+                    showVideo(currentVideo);
+                    startCarousel(); // Restart interval after manual switch
+                }
+            });
+        });
+    }
+
     const shopNowBtn = document.getElementById('shop-now-btn');
-    if (video && shopNowBtn) {
-        video.addEventListener('ended', () => {
-            console.log('Hero video ended, enabling loop');
+    if (shopNowBtn) {
+        videos[0].addEventListener('play', () => {
+            console.log('First video started playing');
             shopNowBtn.style.display = 'inline-block';
             shopNowBtn.classList.add('fade-in');
-            video.loop = true;
-            video.play().catch(e => console.error('Video replay error:', e));
         });
-        video.addEventListener('play', () => console.log('Hero video started playing'));
-        video.addEventListener('error', (e) => console.error('Video error:', e));
     }
 }
 
-// Image Reveal on Scroll
 function setupImageReveal() {
     const revealImages = document.querySelectorAll('.product-card .product-image');
     const observer = new IntersectionObserver((entries) => {
@@ -558,7 +633,6 @@ function setupImageReveal() {
     });
 }
 
-// Toggle Testimonials Functionality
 function setupTestimonials() {
     const toggleButton = document.querySelector('.toggle-testimonials');
     const testimonials = document.getElementById('testimonials');
@@ -571,26 +645,22 @@ function setupTestimonials() {
     }
 }
 
-// Animation Functionality (Trigger on every page load)
 function setupAnimation() {
     const animationContainer = document.getElementById('animation-container');
     if (animationContainer) {
-        animationContainer.style.opacity = '0'; // Start hidden
-        // Trigger animation on page load
+        animationContainer.style.opacity = '0';
         setTimeout(() => {
             animationContainer.style.opacity = '1';
-        }, 100); // Small delay to ensure DOM is ready
-        // Hide after animation (3s for a dazzling effect)
+        }, 100);
         setTimeout(() => {
             animationContainer.style.opacity = '0';
             setTimeout(() => {
                 animationContainer.style.display = 'none';
-            }, 500); // Allow fade-out transition
+            }, 500);
         }, 3000);
     }
 }
 
-// Function to initialize hamburger menu
 function initHamburgerMenu() {
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
@@ -604,20 +674,12 @@ function initHamburgerMenu() {
         });
     } else {
         console.error('Hamburger or navLinks not found in the DOM');
-        // Retry after a short delay
         setTimeout(initHamburgerMenu, 500);
     }
 }
 
-// Ensure the function is available globally for the fetch callback
 window.initHamburgerMenu = initHamburgerMenu;
 
-// Ensure the function runs after DOM content is fully loaded
-document.addEventListener('DOMContentLoaded', () => {
-    // This will be overridden by the fetch callback in HTML
-});
-
-// Ensure DOM is fully loaded before initializing
 function initialize() {
     console.log('Initializing scripts');
     setupShareButton();
@@ -628,11 +690,11 @@ function initialize() {
     setupCartPage();
     setupContactForm();
     setupSlideshow();
-    setupHeroVideo();
+    setupHeroVideoCarousel();
     setupImageReveal();
     setupTestimonials();
     setupAnimation();
-    setupSizeChart(); // Initialize size chart functionality
+    setupSizeChart();
 }
 
 if (document.readyState === 'loading') {

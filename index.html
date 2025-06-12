@@ -26,10 +26,20 @@
 </script>
 
     <section class="hero">
-        <video id="hero-video" autoplay muted playsinline preload="auto" poster="https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/pink_georgette_printed_designer_suit_1676613156361175_(pink).jpg">
-            <source src="videos/intro7s.mp4" type="video/mp4">
-            Your browser does not support HTML5 video.
-        </video>
+        <div class="hero-video-carousel">
+            <video id="hero-video-1" class="hero-video-slide active" muted playsinline preload="auto">
+                <source src="videos/intro7s.mp4" type="video/mp4">
+                Your browser does not support HTML5 video.
+            </video>
+            <video id="hero-video-2" class="hero-video-slide" muted playsinline preload="auto">
+                <source src="videos/Intro2-7s.mp4" type="video/mp4">
+                Your browser does not support HTML5 video.
+            </video>
+        </div>
+        <div class="carousel-indicators">
+            <span class="indicator active" data-index="0"></span>
+            <span class="indicator" data-index="1"></span>
+        </div>
 
         <div class="hero-content">
             <h1>Authentic Chikankari Craftsmanship</h1>
