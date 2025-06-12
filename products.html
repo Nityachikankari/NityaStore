@@ -48,6 +48,7 @@
                 <span class="quantity">0</span>
                 <button class="increase">+</button>
             </div>
+            <button class="size-chart-btn">📏</button>
         </div>
        <!-- <div class="product-card" data-id="2" data-name="Chikankari Kurti" data-price="80" data-images='[
                 "https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/black_georgette_sharara_suit_with_attached_dupatta_1677055289jm_2724.jpg",
@@ -90,6 +91,7 @@
                 <span class="quantity">0</span>
                 <button class="increase">+</button>
             </div>
+            <button class="size-chart-btn">📏</button>
         </div>
         <div class="product-card" data-id="4" data-name="Anarkali Suit" data-price="200" data-images='[
                 "images/PRP4.jpeg"
@@ -110,6 +112,7 @@
                 <span class="quantity">0</span>
                 <button class="increase">+</button>
             </div>
+            <button class="size-chart-btn">📏</button>
         </div>
         <div class="product-card" data-id="5" data-name="Chikankari Top" data-price="60" data-images='[
                 "https://pictures.kartmax.in/cover/live/600x800/quality=6/sites/9s145MyZrWdIAwpU0JYS/product-images/teal_blue_silk_jumpsuit_with_printed_shrug_1677049420jm_2715.jpg",
@@ -132,6 +135,7 @@
                 <span class="quantity">0</span>
                 <button class="increase">+</button>
             </div>
+            <button class="size-chart-btn">📏</button>
         </div>
     </div>
 </section>
@@ -157,7 +161,54 @@
     <span class="zoom-close">×</span>
     <img id="zoomed-image" src="" alt="Zoomed Product Image">
 </div>
-
+<!-- Size Chart Dialog -->
+<dialog id="size-chart-dialog" class="size-chart-dialog">
+    <div class="size-chart-content">
+        <button class="size-chart-close">×</button>
+        <h2>Size Chart</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Size</th>
+                <th>Chest (in)</th>
+                <th>Waist (in)</th>
+                <th>Hips (in)</th>
+                <th>Length (in)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>S</td>
+                <td>34-36</td>
+                <td>28-30</td>
+                <td>36-38</td>
+                <td>38</td>
+            </tr>
+            <tr>
+                <td>M</td>
+                <td>36-38</td>
+                <td>30-32</td>
+                <td>38-40</td>
+                <td>39</td>
+            </tr>
+            <tr>
+                <td>L</td>
+                <td>38-40</td>
+                <td>32-34</td>
+                <td>40-42</td>
+                <td>40</td>
+            </tr>
+            <tr>
+                <td>XL</td>
+                <td>40-42</td>
+                <td>34-36</td>
+                <td>42-44</td>
+                <td>41</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</dialog>
 <script defer src="scripts.js"></script>
 </body>
 </html>

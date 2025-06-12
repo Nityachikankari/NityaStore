@@ -175,11 +175,11 @@ nav {
 }
 
 .cta-btn {
-    border: none; /* Remove black border */
-    margin-top: 40px; /* Space above the button */
-    margin-bottom: 20px; /* Space below the button before footer */
-    display: block; /* Ensure it behaves as a block element */
-    width: 250px; /* Fixed width for centering, matches image */
+    border: none;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    display: block;
+    width: 250px;
     padding: 0.9rem 2.2rem;
     background-color: #C49A6C;
     color: #FFFFFF;
@@ -397,6 +397,115 @@ nav {
     100% { transform: scale(1); opacity: 1; }
 }
 
+/* Size Chart Button */
+.size-chart-btn {
+    margin: 0.8rem auto;
+    padding: 0.6rem 1rem;
+    width: 80px; /* Reduced width */
+    background-color: transparent;
+    color: #333333;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    font-size: 0.9rem;
+    font-weight: 500;
+    display: block;
+    text-align: center; /* Ensures text is centered */
+}
+
+.size-chart-btn:hover {
+    background-color: #E6D5C3;
+    transform: scale(1.05);
+}
+
+.size-chart-btn:active {
+    animation: buttonScale 0.2s ease;
+}
+
+@keyframes buttonScale {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+}
+
+/* Size Chart Dialog */
+.size-chart-dialog {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    max-width: 600px;
+    width: 90%;
+    background: #FFFFFF;
+    padding: 0;
+    animation: slideUp 0.3s ease-in;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.size-chart-content {
+    padding: 2rem;
+    position: relative;
+}
+
+.size-chart-content h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #C49A6C;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.size-chart-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #C49A6C;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.size-chart-close:hover {
+    background: #A88055;
+}
+
+.size-chart-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.size-chart-content th,
+.size-chart-content td {
+    padding: 0.8rem;
+    border: 1px solid #E8E8E8;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #333333;
+}
+
+.size-chart-content th {
+    background-color: #F9F1EC;
+    font-weight: 600;
+    color: #C49A6C;
+}
+
+.size-chart-content td {
+    background-color: #FFFFFF;
+}
+
 /* Cart Section */
 .cart {
     padding: 5rem 1rem;
@@ -409,7 +518,7 @@ nav {
 .cart h2 {
     font-size: 2.8rem;
     font-weight: 700;
-    margin-bottom: 1.5rem; /* Reduced for better spacing */
+    margin-bottom: 1.5rem;
     color: #C49A6C;
     text-align: center;
 }
@@ -417,22 +526,22 @@ nav {
 .cart-table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 1.5rem; /* Reduced for better spacing */
+    margin-bottom: 1.5rem;
 }
 
 .cart-table th,
 .cart-table td {
-    padding: 0.8rem; /* Adjusted for better readability */
+    padding: 0.8rem;
     border-bottom: 1px solid #E8E8E8;
     text-align: left;
     font-size: 0.9rem;
-    vertical-align: middle; /* Center content vertically */
+    vertical-align: middle;
 }
 
 .cart-table th {
     color: #C49A6C;
     font-weight: 600;
-    background-color: #F9F1EC; /* Light background for headers */
+    background-color: #F9F1EC;
 }
 
 .cart-table td {
@@ -442,15 +551,15 @@ nav {
 .cart-quantity-control {
     display: flex;
     align-items: center;
-    gap: 0.5rem; /* Adjusted gap for better spacing */
+    gap: 0.5rem;
 }
 
 .cart-quantity-control button {
-    padding: 0.4rem 0.8rem; /* Adjusted for compactness */
+    padding: 0.4rem 0.8rem;
     background-color: #E8E8E8;
     color: #333333;
     border: none;
-    border-radius: 4px; /* Rounded corners for buttons */
+    border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
     font-size: 0.85rem;
@@ -466,7 +575,7 @@ nav {
 }
 
 .cart-quantity-control span {
-    margin: 0 0.3rem; /* Reduced margin for compactness */
+    margin: 0 0.3rem;
     font-size: 0.85rem;
 }
 
@@ -474,8 +583,8 @@ nav {
     font-size: 1.2rem;
     font-weight: 700;
     color: #C49A6C;
-    margin: 1rem 0; /* Adjusted for better spacing */
-    background-color: #F9F1EC; /* Light background for total */
+    margin: 1rem 0;
+    background-color: #F9F1EC;
     padding: 0.5rem 1rem;
     border-radius: 8px;
     display: inline-block;
@@ -492,8 +601,8 @@ nav {
     font-weight: 600;
     font-size: 0.95rem;
     animation: pulse 2s infinite;
-    display: block; /* Ensure it takes full width on mobile */
-    margin: 0 auto; /* Center the button */
+    display: block;
+    margin: 0 auto;
 }
 
 .checkout-btn:hover {
@@ -1093,6 +1202,22 @@ footer a:hover {
         padding: 0.7rem 1.5rem;
         font-size: 0.9rem;
     }
+
+    /* Size Chart Dialog Responsiveness */
+    .size-chart-dialog {
+        width: 95%;
+        max-width: 500px;
+    }
+
+    .size-chart-content h2 {
+        font-size: 1.5rem;
+    }
+
+    .size-chart-content th,
+    .size-chart-content td {
+        font-size: 0.8rem;
+        padding: 0.5rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1198,7 +1323,24 @@ footer a:hover {
     .checkout-btn {
         padding: 0.6rem 1.2rem;
         font-size: 0.85rem;
-        width: 100%; /* Full width for better mobile look */
+        width: 100%;
         box-sizing: border-box;
     }
+
+    /* Size Chart Dialog Responsiveness */
+    .size-chart-dialog {
+        width: 95%;
+        max-width: 400px;
+    }
+
+    .size-chart-content h2 {
+        font-size: 1.3rem;
+    }
+
+    .size-chart-content th,
+    .size-chart-content td {
+        font-size: 0.7rem;
+        padding: 0.4rem;
+    }
+
 }

@@ -140,7 +140,9 @@ function formatOrderDetails(orderNumber, location) {
     });
 
     message += `\nTotal: $${total.toFixed(2)}\n`;
+    message += `\nPlease confirm the order and arrange for delivery`;
     message += `\nThank you for shopping with Nitya Chikankari!`;
+    message += `\n\nVisit us at: ${window.location.href}`;
 
     // Encode message for URL
     return encodeURIComponent(message);
@@ -294,6 +296,49 @@ function setupImageZoom() {
             e.preventDefault();
             console.log('Zoom close button touched');
             zoomOverlay.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }, { passive: false });
+    }
+}
+
+// Size Chart Dialog Functionality
+function setupSizeChart() {
+    const sizeChartDialog = document.getElementById('size-chart-dialog');
+    const sizeChartButtons = document.querySelectorAll('.size-chart-btn');
+    const sizeChartClose = document.querySelector('.size-chart-close');
+
+    if (sizeChartDialog && sizeChartButtons.length > 0 && sizeChartClose) {
+        sizeChartButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                console.log('Size chart button clicked');
+                sizeChartDialog.showModal();
+                document.body.style.overflow = 'hidden';
+            });
+
+            btn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                btn.click();
+            }, { passive: false });
+        });
+
+        sizeChartClose.addEventListener('click', () => {
+            console.log('Size chart close button clicked');
+            sizeChartDialog.close();
+            document.body.style.overflow = 'auto';
+        });
+
+        sizeChartDialog.addEventListener('click', (e) => {
+            if (e.target === sizeChartDialog) {
+                console.log('Clicked outside size chart dialog');
+                sizeChartDialog.close();
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        sizeChartClose.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            console.log('Size chart close button touched');
+            sizeChartDialog.close();
             document.body.style.overflow = 'auto';
         }, { passive: false });
     }
@@ -512,6 +557,7 @@ function setupImageReveal() {
         observer.observe(img);
     });
 }
+
 // Toggle Testimonials Functionality
 function setupTestimonials() {
     const toggleButton = document.querySelector('.toggle-testimonials');
@@ -524,6 +570,7 @@ function setupTestimonials() {
         });
     }
 }
+
 // Animation Functionality (Trigger on every page load)
 function setupAnimation() {
     const animationContainer = document.getElementById('animation-container');
@@ -542,15 +589,16 @@ function setupAnimation() {
         }, 3000);
     }
 }
+
 // Function to initialize hamburger menu
 function initHamburgerMenu() {
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
 
     if (hamburger && navLinks) {
-        console.log('Hamburger and navLinks found'); // Debug log
+        console.log('Hamburger and navLinks found');
         hamburger.addEventListener('click', () => {
-            console.log('Hamburger clicked'); // Debug log
+            console.log('Hamburger clicked');
             navLinks.classList.toggle('active');
             hamburger.classList.toggle('active');
         });
@@ -582,8 +630,9 @@ function initialize() {
     setupSlideshow();
     setupHeroVideo();
     setupImageReveal();
-    setupTestimonials(); // Add testimonials toggle
-    setupAnimation(); // Add one-time animation
+    setupTestimonials();
+    setupAnimation();
+    setupSizeChart(); // Initialize size chart functionality
 }
 
 if (document.readyState === 'loading') {
