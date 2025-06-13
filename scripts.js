@@ -521,8 +521,23 @@ function setupContactForm() {
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
+            const name = contactForm.querySelector('input[name="name"]').value.trim();
+            const message = contactForm.querySelector('textarea[name="message"]').value.trim();
+
+            if (!name || !message) {
+                alert('Please fill in all fields.');
+                return;
+            }
+
+            const formattedMessage = encodeURIComponent(
+                `New Contact Message\n\nName: ${name}\nMessage: ${message}\n\nFrom: Nitya Chikankari Website`
+            );
+            const whatsappNumber = '+7007992535';
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${formattedMessage}`;
+
+            window.open(whatsappUrl, '_blank');
             alert('Thank you for your message! We will get back to you soon.');
-            this.reset();
+            contactForm.reset();
         });
     }
 }
