@@ -221,7 +221,7 @@ nav {
     border: none;
     margin-top: 40px;
     margin-bottom: 20px;
-    display: block;
+    display: inline-block;
     width: 250px;
     padding: 0.9rem 2.2rem;
     background-color: #C49A6C;
@@ -230,9 +230,8 @@ nav {
     border-radius: 8px;
     transition: background-color 0.3s, transform 0.3s;
     font-weight: 600;
-    display: inline-block;
-    transform: translateY(-100px);
-    opacity: 0;
+    transform: translateY(0);
+    opacity: 1;
 }
 
 .cta-btn.fade-in {
