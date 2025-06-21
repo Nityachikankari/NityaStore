@@ -74,6 +74,24 @@ nav {
 
 .nav-links a:hover {
     color: #C49A6C;
+    transform: scale(1.1)
+}
+.nav-links a {
+    position: relative;
+}
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    width: 0;
+    height: 1px;
+    background: #C49A6C;
+    transition: width 0.3s ease, left 0.3s ease;
+}
+.nav-links a:hover::after {
+    width: 100%;
+    left: 0;
 }
 
 .hamburger {
@@ -239,6 +257,8 @@ nav {
 }
 
 
+
+
 .cta-btn {
     border: none;
     margin-top: 40px;
@@ -368,7 +388,11 @@ nav {
     -webkit-tap-highlight-color: transparent;
 }
 
+.eye-btn {
+    transition: transform 0.3s ease;
+}
 .eye-btn:hover {
+    transform: rotate(25deg);
     background: #C49A6C;
     color: #FFFFFF;
 }
