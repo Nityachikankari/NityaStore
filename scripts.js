@@ -695,6 +695,19 @@ function initHamburgerMenu() {
 
 window.initHamburgerMenu = initHamburgerMenu;
 
+function setupHeroTypewriter() {
+    const heroTitle = document.querySelector('.hero h1');
+    if (heroTitle) {
+        const text = heroTitle.textContent;
+        heroTitle.textContent = '';
+        heroTitle.style.opacity = '1';
+        text.split('').forEach((char, i) => {
+            setTimeout(() => {
+                heroTitle.textContent += char;
+            }, i * 50);
+        });
+    }
+}
 function initialize() {
     console.log('Initializing scripts');
     setupShareButton();
@@ -710,6 +723,7 @@ function initialize() {
     setupTestimonials();
     setupAnimation();
     setupSizeChart();
+    setupHeroTypewriter();
 }
 
 if (document.readyState === 'loading') {

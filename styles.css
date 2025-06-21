@@ -119,8 +119,19 @@ nav {
 }
 
 .nav-links.active a {
-    margin: 0.5rem 0;
-    font-size: 1rem;
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: navLinkFadeIn 0.3s ease-out forwards;
+}
+.nav-links.active a:nth-child(1) { animation-delay: 0.1s; }
+.nav-links.active a:nth-child(2) { animation-delay: 0.2s; }
+.nav-links.active a:nth-child(3) { animation-delay: 0.3s; }
+.nav-links.active a:nth-child(4) { animation-delay: 0.4s; }
+.nav-links.active a:nth-child(5) { animation-delay: 0.5s; }
+.nav-links.active a:nth-child(6) { animation-delay: 0.6s; }
+.nav-links.active a:nth-child(7) { animation-delay: 0.7s; }
+@keyframes navLinkFadeIn {
+    to { opacity: 1; transform: translateX(0); }
 }
 
 /* Hero Section */
@@ -211,12 +222,22 @@ nav {
     color: #C49A6C;
 }
 
+.hero h1 {
+    white-space: normal;
+    overflow: hidden;
+    border-right: 0.5px solid #C49A6C; /* Cursor effect */
+    animation: blinkCursor 0.7s step-end infinite;
+}
+@keyframes blinkCursor {
+    50% { border-color: transparent; }
+}
 .hero p {
     font-size: 1.3rem;
     margin-bottom: 2rem;
     color: #E0E0E0;
     font-weight: 300;
 }
+
 
 .cta-btn {
     border: none;
