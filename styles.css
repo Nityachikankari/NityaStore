@@ -23,9 +23,9 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes slideDown {
-    from { transform: translateY(-100%); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+@keyframes slideInFromLeft {
+    from { transform: translateX(-100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
 }
 
 @keyframes slideFromTop {
@@ -104,16 +104,17 @@ nav {
 }
 
 .nav-links.active {
-    display: none;
+    display: flex;
     flex-direction: column;
-    position: absolute;
-    top: 100%;
+    position: fixed;
+    top: 0;
     left: 0;
-    right: 0;
+    width: 250px;
+    height: 100vh;
     background-color: #FFFFFF;
     padding: 1rem;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    animation: slideDown 0.3s ease-out;
+    box-shadow: 4px 0 8px rgba(0,0,0,0.1);
+    animation: slideInFromLeft 0.3s ease-out;
     z-index: 1000;
 }
 
@@ -1172,6 +1173,7 @@ footer a:hover {
 
     .nav-links.active {
         display: flex;
+        width: 200px;
     }
 
     .hero {
@@ -1275,6 +1277,10 @@ footer a:hover {
     .hamburger span {
         width: 20px;
         height: 2px;
+    }
+
+    .nav-links.active {
+        width: 180px;
     }
 
     .hero {
