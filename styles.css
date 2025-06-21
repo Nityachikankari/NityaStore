@@ -107,10 +107,10 @@ nav {
     display: flex;
     flex-direction: column;
     position: fixed;
-    top: 0;
+    top: 90px; /* Below header (80px logo + 0.6rem padding) */
     left: 0;
     width: 250px;
-    height: 100vh;
+    height: calc(100vh - 90px); /* Remaining viewport height */
     background-color: #FFFFFF;
     padding: 1rem;
     box-shadow: 4px 0 8px rgba(0,0,0,0.1);
@@ -1173,7 +1173,9 @@ footer a:hover {
 
     .nav-links.active {
         display: flex;
+        top: 70px; /* Below header (60px logo + 0.6rem padding) */
         width: 200px;
+        height: calc(100vh - 70px);
     }
 
     .hero {
@@ -1280,7 +1282,9 @@ footer a:hover {
     }
 
     .nav-links.active {
+        top: 60px; /* Below header (50px logo + 0.6rem padding) */
         width: 180px;
+        height: calc(100vh - 60px);
     }
 
     .hero {
