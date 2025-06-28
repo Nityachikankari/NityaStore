@@ -657,6 +657,27 @@ function setupTestimonials() {
             testimonials.classList.toggle('hidden');
             toggleButton.textContent = testimonials.classList.contains('hidden') ? 'View Testimonials' : 'Hide Testimonials';
         });
+
+        const testimonialCards = testimonials.querySelectorAll('.testimonial-card');
+        testimonialCards.forEach(card => {
+            card.addEventListener('click', () => {
+                console.log('Testimonial card clicked');
+                // Remove explode-zoom from all cards
+                testimonialCards.forEach(c => c.classList.remove('explode-zoom'));
+                // Add explode-zoom to clicked card
+                card.classList.add('explode-zoom');
+                // Remove after animation completes to allow re-triggering
+                setTimeout(() => {
+                    card.classList.remove('explode-zoom');
+                }, 600); // Matches animation duration
+            });
+
+            card.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                console.log('Testimonial card touched');
+                card.click();
+            }, { passive: false });
+        });
     }
 }
 
