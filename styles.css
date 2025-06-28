@@ -1,3 +1,4 @@
+
 * {
     margin: 0;
     padding: 0;
@@ -31,6 +32,11 @@ body {
 @keyframes slideFromTop {
     from { transform: translateY(-100px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
 }
 
 header {
@@ -255,9 +261,6 @@ nav {
     color: #E0E0E0;
     font-weight: 300;
 }
-
-
-
 
 .cta-btn {
     border: none;
@@ -971,24 +974,25 @@ footer a:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.7);
+    background: rgba(0,0,0,0.6);
     z-index: 1000;
     justify-content: center;
     align-items: center;
     overflow-y: auto;
-    padding: 20px 0;
+    padding: 20px;
+    backdrop-filter: blur(2px);
 }
 
 .modal-content {
     background: #FFFFFF;
-    border-radius: 12px;
-    width: 80%;
-    max-width: 1000px;
-    max-height: 85vh;
-    padding: 2rem;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 1200px;
+    max-height: 90vh;
+    padding: 2.5rem;
     position: relative;
-    animation: slideUp 0.5s ease-in;
-    border: 2px solid #C49A6C;
+    animation: scaleIn 0.4s ease-out;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
     overflow-y: auto;
 }
 
@@ -1000,86 +1004,96 @@ footer a:hover {
     color: #FFFFFF;
     border: none;
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.3s;
     -webkit-tap-highlight-color: transparent;
+    padding: 5px; /* Add padding to increase tappable area */
 }
 
 .modal-close:hover {
     background: #A88055;
+    transform: scale(1.1);
 }
 
 .modal-title {
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: 700;
     color: #C49A6C;
     text-align: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     position: relative;
+    font-family: 'Georgia', serif;
 }
 
 .modal-title::after {
     content: '';
     position: absolute;
-    bottom: -5px;
+    bottom: -8px;
     left: 50%;
     transform: translateX(-50%);
-    width: 50px;
-    height: 2px;
-    background: #C49A6C;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(to right, transparent, #C49A6C, transparent);
 }
 
 .modal-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    margin-top: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
 }
 
 .modal-card {
-    background: #F4E9E3;
-    border-radius: 8px;
-    padding: 1rem;
+    background: #F9F1EC;
+    border-radius: 12px;
+    padding: 1.5rem;
     text-align: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .modal-card:hover {
-    transform: scale(1.03);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(196,154,108,0.3);
 }
 
 .modal-card img {
     width: 100%;
-    height: 200px;
+    height: 250px;
     object-fit: contain;
-    border-radius: 6px;
-    margin-bottom: 0.5rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.modal-card img:hover {
+    transform: scale(1.05);
 }
 
 .modal-card p {
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: #666666;
     margin: 0.5rem 0;
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
 .modal-card .modal-price {
     font-weight: 700;
     color: #C49A6C;
-    font-size: 1.1rem;
-    margin: 0.5rem 0;
+    font-size: 1.3rem;
+    margin: 0.75rem 0;
 }
 
 .modal-card .modal-sizes {
-    font-size: 0.85rem;
+    font-size: 0.95rem;
     color: #333333;
+    font-weight: 500;
 }
 
 .image-zoom-overlay {
@@ -1306,6 +1320,30 @@ footer a:hover {
         font-size: 0.8rem;
         padding: 0.5rem;
     }
+
+    .modal-content {
+        width: 95%;
+        max-width: 700px;
+        padding: 2rem;
+    }
+
+    .modal-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    .modal-card img {
+        height: 200px;
+    }
+
+    .modal-title {
+        font-size: 1.8rem;
+    }
+
+    .modal-close {
+        width: 45px;
+        height: 45px;
+        font-size: 1.4rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1443,5 +1481,30 @@ footer a:hover {
     .size-chart-content td {
         font-size: 0.7rem;
         padding: 0.4rem;
+    }
+
+    .modal-content {
+        width: 90%;
+        max-width: 500px;
+        padding: 1.5rem 2rem; /* Increased padding to expose more background */
+    }
+
+    .modal-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-card img {
+        height: 180px;
+    }
+
+    .modal-title {
+        font-size: 1.5rem;
+    }
+
+    .modal-close {
+        width: 25px; /* Increased to 50px for better tap target */
+        height: 25px;
+        font-size: 1.5rem;
+        padding: 8px; /* Larger tappable area */
     }
 }
